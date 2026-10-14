@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, Play, AlertTriangle, AlertOctagon, CheckCircle2, Loader2 } from 'lucide-react';
+import { Activity, AlertTriangle, AlertOctagon, CheckCircle2, Loader2 } from 'lucide-react';
 import { equipmentService } from '../services/api';
 
 export const SimulationControl = ({ equipmentId, onSimulationTriggered }) => {
@@ -30,20 +30,20 @@ export const SimulationControl = ({ equipmentId, onSimulationTriggered }) => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-slate-900 via-sky-950/30 to-slate-900 border border-sky-500/30 rounded-2xl p-4 shadow-lg">
+    <div className="bg-gradient-to-r from-sky-50/70 via-white to-sky-50/70 border border-sky-200/90 rounded-2xl p-4 shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400">
+          <div className="w-8 h-8 rounded-lg bg-sky-100 border border-sky-200 flex items-center justify-center text-sky-600">
             <Activity className="w-4 h-4 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h4 className="text-sm font-bold text-white tracking-tight">Interactive Sensor Simulator</h4>
-              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
+              <h4 className="text-sm font-bold text-slate-900 tracking-tight">Interactive Sensor Simulator</h4>
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-sky-100 text-sky-700 border border-sky-200">
                 SIMULATED DATA
               </span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               Inject synthetic telemetry packets into {equipmentId} to test Digital Twin state transitions
             </p>
           </div>
@@ -54,13 +54,13 @@ export const SimulationControl = ({ equipmentId, onSimulationTriggered }) => {
           <button
             onClick={() => handleSimulate('normal')}
             disabled={!!loadingScenario}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold transition-all hover:scale-105"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-semibold transition-all hover:scale-105 shadow-xs"
             title="Inject nominal physiological sensor values"
           >
             {loadingScenario === 'normal' ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-600" />
             ) : (
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
             )}
             Normal Scenario
           </button>
@@ -68,13 +68,13 @@ export const SimulationControl = ({ equipmentId, onSimulationTriggered }) => {
           <button
             onClick={() => handleSimulate('warning')}
             disabled={!!loadingScenario}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold transition-all hover:scale-105"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-semibold transition-all hover:scale-105 shadow-xs"
             title="Inject moderate sensor drift values"
           >
             {loadingScenario === 'warning' ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-600" />
             ) : (
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
             )}
             Warning Drift
           </button>
@@ -82,13 +82,13 @@ export const SimulationControl = ({ equipmentId, onSimulationTriggered }) => {
           <button
             onClick={() => handleSimulate('critical')}
             disabled={!!loadingScenario}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/40 text-xs font-semibold transition-all hover:scale-105 shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-200 text-xs font-semibold transition-all hover:scale-105 shadow-xs"
             title="Inject boundary breach or bubble alarm"
           >
             {loadingScenario === 'critical' ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-rose-600" />
             ) : (
-              <AlertOctagon className="w-3.5 h-3.5 text-rose-400" />
+              <AlertOctagon className="w-3.5 h-3.5 text-rose-600" />
             )}
             Critical Alarm
           </button>
@@ -97,16 +97,16 @@ export const SimulationControl = ({ equipmentId, onSimulationTriggered }) => {
 
       {lastMessage && (
         <div
-          className={`mt-3 px-3 py-1.5 rounded-lg text-xs font-mono flex items-center justify-between ${
+          className={`mt-3 px-3 py-1.5 rounded-lg text-xs font-mono flex items-center justify-between border shadow-xs ${
             lastMessage.type === 'critical'
-              ? 'bg-rose-950/40 border border-rose-500/30 text-rose-300'
+              ? 'bg-rose-50 border-rose-200 text-rose-800'
               : lastMessage.type === 'warning'
-              ? 'bg-amber-950/40 border border-amber-500/30 text-amber-300'
-              : 'bg-emerald-950/40 border border-emerald-500/30 text-emerald-300'
+              ? 'bg-amber-50 border-amber-200 text-amber-800'
+              : 'bg-emerald-50 border-emerald-200 text-emerald-800'
           }`}
         >
           <span>{lastMessage.text}</span>
-          <button onClick={() => setLastMessage(null)} className="font-bold text-slate-400 hover:text-white">
+          <button onClick={() => setLastMessage(null)} className="font-bold text-slate-400 hover:text-slate-700">
             ×
           </button>
         </div>

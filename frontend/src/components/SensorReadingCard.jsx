@@ -1,5 +1,5 @@
 import React from 'react';
-import { Gauge, AlertTriangle, CheckCircle2, AlertOctagon, HelpCircle } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, AlertOctagon } from 'lucide-react';
 
 export const SensorReadingCard = ({ sensor, value, isFlagged, flagDetail }) => {
   const numVal = typeof value === 'number' ? value : parseFloat(value);
@@ -36,15 +36,15 @@ export const SensorReadingCard = ({ sensor, value, isFlagged, flagDetail }) => {
   }
 
   const borderStyles = {
-    normal: 'border-slate-800 bg-slate-900/60 hover:border-slate-700',
-    warning: 'border-amber-500/40 bg-amber-950/20 hover:border-amber-500/60 shadow-[0_0_15px_rgba(245,158,11,0.1)]',
-    critical: 'border-rose-500/50 bg-rose-950/20 hover:border-rose-500/70 shadow-[0_0_20px_rgba(244,63,94,0.15)] animate-pulse-subtle',
+    normal: 'border-slate-200 bg-white hover:border-slate-300 shadow-xs',
+    warning: 'border-amber-300 bg-amber-50/40 hover:border-amber-400 shadow-xs',
+    critical: 'border-rose-300 bg-rose-50/40 hover:border-rose-400 shadow-xs animate-pulse-subtle',
   };
 
   const badgeStyles = {
-    normal: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
-    warning: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
-    critical: 'text-rose-400 bg-rose-500/15 border-rose-500/30',
+    normal: 'text-emerald-700 bg-emerald-50 border-emerald-200',
+    warning: 'text-amber-700 bg-amber-50 border-amber-200',
+    critical: 'text-rose-700 bg-rose-50 border-rose-200',
   };
 
   return (
@@ -55,15 +55,15 @@ export const SensorReadingCard = ({ sensor, value, isFlagged, flagDetail }) => {
           <span className="font-mono text-[10px] text-slate-400 block uppercase tracking-wider">
             {sensor.id}
           </span>
-          <h4 className="text-sm font-semibold text-white tracking-tight">{sensor.name}</h4>
+          <h4 className="text-sm font-semibold text-slate-800 tracking-tight">{sensor.name}</h4>
         </div>
-        <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full border ${badgeStyles[status]}`}>
+        <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full border shadow-xs ${badgeStyles[status]}`}>
           {status === 'critical' ? (
-            <AlertOctagon className="w-3 h-3 text-rose-400" />
+            <AlertOctagon className="w-3 h-3 text-rose-600" />
           ) : status === 'warning' ? (
-            <AlertTriangle className="w-3 h-3 text-amber-400" />
+            <AlertTriangle className="w-3 h-3 text-amber-600" />
           ) : (
-            <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
           )}
           {statusText}
         </span>
@@ -73,24 +73,24 @@ export const SensorReadingCard = ({ sensor, value, isFlagged, flagDetail }) => {
       <div className="my-3 flex items-baseline gap-2">
         <span className={`text-3xl font-extrabold font-mono tracking-tight ${
           status === 'critical'
-            ? 'text-rose-400'
+            ? 'text-rose-600'
             : status === 'warning'
-            ? 'text-amber-300'
-            : 'text-white'
+            ? 'text-amber-700'
+            : 'text-slate-900'
         }`}>
           {sensor.id === 'air_in_blood'
             ? (numVal >= 1.0 ? 'TRIGGERED' : '0 (CLEAR)')
             : (hasValue ? numVal.toFixed(sensor.unit === 'V' || sensor.unit === '°C' ? 2 : 1) : '--')}
         </span>
-        <span className="text-sm font-medium text-slate-400">
+        <span className="text-sm font-medium text-slate-500">
           {sensor.unit !== 'flag' ? sensor.unit : ''}
         </span>
       </div>
 
       {/* Safe Tolerance Envelope */}
-      <div className="pt-2 border-t border-slate-800/80 text-[11px] flex items-center justify-between text-slate-400">
+      <div className="pt-2 border-t border-slate-100 text-[11px] flex items-center justify-between text-slate-500">
         <span>Target Normal:</span>
-        <span className="font-mono text-slate-300 font-medium">
+        <span className="font-mono text-slate-700 font-semibold">
           {sensor.id === 'air_in_blood'
             ? '0 (No bubbles)'
             : `${sensor.normal_min} - ${sensor.normal_max} ${sensor.unit}`}
@@ -99,7 +99,7 @@ export const SensorReadingCard = ({ sensor, value, isFlagged, flagDetail }) => {
 
       {/* Flagged Alert note if any */}
       {isFlagged && flagDetail && (
-        <div className="mt-2.5 p-2 rounded bg-rose-500/10 border border-rose-500/30 text-[11px] text-rose-300 leading-tight">
+        <div className="mt-2.5 p-2 rounded bg-rose-50 border border-rose-200 text-[11px] text-rose-800 leading-tight">
           {flagDetail.message}
         </div>
       )}

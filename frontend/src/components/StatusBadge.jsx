@@ -6,26 +6,26 @@ export const TwinStatusBadge = ({ status, size = 'md' }) => {
 
   const configs = {
     normal: {
-      bg: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
-      dot: 'bg-emerald-400 shadow-[0_0_8px_#34d399]',
+      bg: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+      dot: 'bg-emerald-500 shadow-[0_0_6px_#10b981]',
       label: 'Normal',
       icon: CheckCircle2,
     },
     warning: {
-      bg: 'bg-amber-500/10 border-amber-500/30 text-amber-400',
-      dot: 'bg-amber-400 shadow-[0_0_8px_#fbbf24] animate-pulse',
+      bg: 'bg-amber-50 border-amber-200 text-amber-700',
+      dot: 'bg-amber-500 shadow-[0_0_6px_#f59e0b] animate-pulse',
       label: 'Warning',
       icon: AlertTriangle,
     },
     critical: {
-      bg: 'bg-rose-500/15 border-rose-500/40 text-rose-400',
-      dot: 'bg-rose-500 shadow-[0_0_12px_#f43f5e] animate-ping',
+      bg: 'bg-rose-50 border-rose-200 text-rose-700',
+      dot: 'bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-ping',
       label: 'Critical',
       icon: AlertOctagon,
     },
     offline: {
-      bg: 'bg-slate-700/20 border-slate-600/30 text-slate-400',
-      dot: 'bg-slate-500',
+      bg: 'bg-slate-100 border-slate-200 text-slate-600',
+      dot: 'bg-slate-400',
       label: 'Offline',
       icon: WifiOff,
     },
@@ -37,11 +37,11 @@ export const TwinStatusBadge = ({ status, size = 'md' }) => {
   const sizeClasses = size === 'sm' 
     ? 'text-xs px-2 py-0.5 gap-1.5' 
     : size === 'lg' 
-      ? 'text-sm px-3.5 py-1.5 gap-2' 
+      ? 'text-sm px-3.5 py-1.5 gap-2 font-semibold' 
       : 'text-xs px-2.5 py-1 gap-1.5 font-medium';
 
   return (
-    <span className={`inline-flex items-center rounded-full border ${config.bg} ${sizeClasses}`}>
+    <span className={`inline-flex items-center rounded-full border shadow-xs ${config.bg} ${sizeClasses}`}>
       <span className={`w-2 h-2 rounded-full ${config.dot}`} />
       <Icon className="w-3.5 h-3.5" />
       <span>{config.label}</span>
@@ -54,14 +54,14 @@ export const DataSourceBadge = ({ source }) => {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide uppercase border ${
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide uppercase border shadow-xs ${
         isSimulated
-          ? 'bg-sky-500/10 border-sky-500/30 text-sky-400'
-          : 'bg-violet-500/10 border-violet-500/30 text-violet-400'
+          ? 'bg-sky-50 border-sky-200 text-sky-700'
+          : 'bg-purple-50 border-purple-200 text-purple-700'
       }`}
       title={isSimulated ? 'Simulated software telemetry' : 'Physical ESP32 hardware telemetry'}
     >
-      {isSimulated ? <Activity className="w-3 h-3 text-sky-400" /> : <Cpu className="w-3 h-3 text-violet-400" />}
+      {isSimulated ? <Activity className="w-3 h-3 text-sky-600" /> : <Cpu className="w-3 h-3 text-purple-600" />}
       <span>{isSimulated ? 'SIMULATED' : 'ESP32 HARDWARE'}</span>
     </span>
   );
@@ -70,9 +70,9 @@ export const DataSourceBadge = ({ source }) => {
 export const RiskBadge = ({ level, score }) => {
   const norm = (level || 'Normal').toLowerCase();
   const colors = {
-    normal: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
-    warning: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
-    critical: 'text-rose-400 bg-rose-500/10 border-rose-500/20',
+    normal: 'text-emerald-700 bg-emerald-50 border-emerald-200',
+    warning: 'text-amber-700 bg-amber-50 border-amber-200',
+    critical: 'text-rose-700 bg-rose-50 border-rose-200',
   };
 
   return (

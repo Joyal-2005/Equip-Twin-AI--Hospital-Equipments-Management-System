@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { DisclaimerBanner } from './components/DisclaimerBanner';
 import { Header } from './components/Header';
 import { EquipmentCard } from './components/EquipmentCard';
@@ -11,7 +11,7 @@ import { SimulationControl } from './components/SimulationControl';
 import { SettingsModal } from './components/SettingsModal';
 import { TwinStatusBadge, DataSourceBadge } from './components/StatusBadge';
 import { equipmentService } from './services/api';
-import { Activity, AlertOctagon, CheckCircle2, Clock, RefreshCw, WifiOff } from 'lucide-react';
+import { Activity, Clock, WifiOff } from 'lucide-react';
 
 export default function App() {
   const [selectedId, setSelectedId] = useState('VEN-001');
@@ -88,7 +88,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-sky-500 selection:text-white">
       {/* 1. Clinical Disclaimer Banner */}
       <DisclaimerBanner />
 
@@ -110,9 +110,9 @@ export default function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 flex-1 w-full">
         {/* Backend Connection Error Banner if disconnected */}
         {error && (
-          <div className="bg-rose-950/50 border border-rose-500/50 rounded-2xl p-4 flex items-center justify-between gap-3 text-rose-200">
+          <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center justify-between gap-3 text-rose-800 shadow-xs">
             <div className="flex items-center gap-3">
-              <WifiOff className="w-5 h-5 text-rose-400 shrink-0" />
+              <WifiOff className="w-5 h-5 text-rose-600 shrink-0" />
               <div>
                 <strong className="font-bold">Backend Connection Error: </strong>
                 <span>{error}</span>
@@ -120,7 +120,7 @@ export default function App() {
             </div>
             <button
               onClick={() => loadData(true)}
-              className="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-semibold shrink-0 transition-colors"
+              className="px-3 py-1.5 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 border border-rose-300 text-xs font-semibold shrink-0 transition-colors shadow-xs"
             >
               Retry Connection
             </button>
@@ -131,10 +131,10 @@ export default function App() {
         <div>
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h2 className="text-base font-bold text-white tracking-tight">Monitored Hospital Equipment</h2>
-              <p className="text-xs text-slate-400">Select an asset to view its active Digital Twin mirror</p>
+              <h2 className="text-base font-bold text-slate-900 tracking-tight">Monitored Hospital Equipment</h2>
+              <p className="text-xs text-slate-500">Select an asset to view its active Digital Twin mirror</p>
             </div>
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-slate-500 font-medium">
               {twinsOverview.length} assets actively synchronized
             </span>
           </div>
@@ -161,16 +161,16 @@ export default function App() {
         {currentTwin ? (
           <div className="space-y-6">
             {/* Active Twin Status Bar */}
-            <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">
                   {currentTwin.equipment?.id}
                 </span>
                 <div>
-                  <h3 className="text-base font-bold text-white tracking-tight">
+                  <h3 className="text-base font-bold text-slate-900 tracking-tight">
                     {currentTwin.equipment?.name} Digital Twin
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-500">
                     Location: {currentTwin.equipment?.location} • Serial: {currentTwin.equipment?.serial_number}
                   </p>
                 </div>
@@ -185,11 +185,11 @@ export default function App() {
             {/* Current Sensor Readings Cards Grid */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-bold text-white tracking-tight uppercase">
+                <h3 className="text-sm font-bold text-slate-900 tracking-tight uppercase">
                   Active Telemetry Feeds ({currentTwin.equipment?.sensors?.length || 0} Sensors)
                 </h3>
-                <span className="text-xs text-slate-400 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-slate-500" />
+                <span className="text-xs text-slate-500 flex items-center gap-1.5 font-medium">
+                  <Clock className="w-3.5 h-3.5 text-slate-400" />
                   Last Packet: {currentTwin.seconds_since_update !== undefined ? `${currentTwin.seconds_since_update}s ago` : 'Real-time'}
                 </span>
               </div>
@@ -237,18 +237,18 @@ export default function App() {
             </div>
           </div>
         ) : (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center text-slate-400">
-            <Activity className="w-8 h-8 animate-spin mx-auto text-sky-400 mb-3" />
+          <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center text-slate-500 shadow-sm">
+            <Activity className="w-8 h-8 animate-spin mx-auto text-sky-600 mb-3" />
             <p className="text-sm">Connecting to EquipTwin Digital Twin state engine...</p>
           </div>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 py-6 text-xs text-slate-400">
+      <footer className="border-t border-slate-200 bg-white py-6 text-xs text-slate-500 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-300">EquipTwin-AI</span>
+            <span className="font-bold text-slate-800">EquipTwin-AI</span>
             <span>• An AI-Driven Digital Twin Framework for Predictive Maintenance</span>
           </div>
           <div className="text-[11px] text-slate-400 text-center sm:text-right">

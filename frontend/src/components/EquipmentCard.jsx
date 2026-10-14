@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wind, HeartPulse, Clock, ShieldAlert, Cpu } from 'lucide-react';
+import { Wind, HeartPulse, Clock, ShieldAlert } from 'lucide-react';
 import { TwinStatusBadge, DataSourceBadge } from './StatusBadge';
 
 export const EquipmentCard = ({
@@ -29,13 +29,13 @@ export const EquipmentCard = ({
       onClick={() => onSelect(eq.id)}
       className={`relative cursor-pointer rounded-2xl p-5 transition-all duration-300 border text-left ${
         isSelected
-          ? 'bg-slate-900/95 border-sky-500/80 shadow-[0_0_25px_rgba(14,165,233,0.2)] ring-1 ring-sky-500/50'
-          : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900/80 hover:shadow-lg'
+          ? 'bg-white border-sky-500 shadow-md shadow-sky-500/10 ring-2 ring-sky-500/20'
+          : 'bg-white border-slate-200 hover:border-slate-300 hover:shadow-md shadow-xs'
       }`}
     >
       {/* Selection pill */}
       {isSelected && (
-        <div className="absolute -top-2.5 right-6 bg-gradient-to-r from-sky-500 to-cyan-500 text-slate-950 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-md tracking-wider">
+        <div className="absolute -top-2.5 right-6 bg-gradient-to-r from-sky-600 to-cyan-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-sm tracking-wider">
           ACTIVE TWIN
         </div>
       )}
@@ -46,20 +46,20 @@ export const EquipmentCard = ({
           <div
             className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border ${
               isVentilator
-                ? 'bg-sky-500/10 border-sky-500/30 text-sky-400'
-                : 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400'
+                ? 'bg-sky-50 border-sky-200 text-sky-600'
+                : 'bg-indigo-50 border-indigo-200 text-indigo-600'
             }`}
           >
             <Icon className="w-6 h-6" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+              <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
                 {eq.id}
               </span>
-              <span className="text-xs text-slate-400">{eq.department.split('(')[0].trim()}</span>
+              <span className="text-xs text-slate-500">{eq.department.split('(')[0].trim()}</span>
             </div>
-            <h3 className="text-base font-bold text-white mt-0.5 tracking-tight">{eq.name}</h3>
+            <h3 className="text-base font-bold text-slate-900 mt-0.5 tracking-tight">{eq.name}</h3>
           </div>
         </div>
 
@@ -68,16 +68,16 @@ export const EquipmentCard = ({
       </div>
 
       {/* Sensor Count & Key Meta */}
-      <div className="grid grid-cols-2 gap-2 py-3 border-y border-slate-800/80 my-3 text-xs">
+      <div className="grid grid-cols-2 gap-2 py-3 border-y border-slate-100 my-3 text-xs">
         <div>
-          <span className="text-slate-400 block text-[11px]">Model & Serial</span>
-          <span className="text-slate-200 font-mono font-medium truncate block" title={eq.serial_number}>
+          <span className="text-slate-500 block text-[11px]">Model & Serial</span>
+          <span className="text-slate-800 font-mono font-medium truncate block mt-0.5" title={eq.serial_number}>
             {eq.model}
           </span>
         </div>
         <div>
-          <span className="text-slate-400 block text-[11px]">Hospital Location</span>
-          <span className="text-slate-200 font-medium truncate block" title={eq.location}>
+          <span className="text-slate-500 block text-[11px]">Hospital Location</span>
+          <span className="text-slate-800 font-medium truncate block mt-0.5" title={eq.location}>
             {eq.location}
           </span>
         </div>
@@ -86,17 +86,17 @@ export const EquipmentCard = ({
       {/* Risk Metric & Progress Bar */}
       <div className="space-y-1.5 mb-3">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-slate-400 font-medium flex items-center gap-1">
+          <span className="text-slate-600 font-medium flex items-center gap-1">
             <ShieldAlert className="w-3.5 h-3.5 text-slate-400" />
             AI Risk Score
           </span>
           <span
             className={`font-mono font-bold ${
               riskLevel === 'Critical'
-                ? 'text-rose-400'
+                ? 'text-rose-600'
                 : riskLevel === 'Warning'
-                ? 'text-amber-400'
-                : 'text-emerald-400'
+                ? 'text-amber-600'
+                : 'text-emerald-600'
             }`}
           >
             {riskScore}% ({riskLevel})
@@ -104,7 +104,7 @@ export const EquipmentCard = ({
         </div>
 
         {/* Progress bar */}
-        <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+        <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden border border-slate-200/50">
           <div
             className={`h-full transition-all duration-500 rounded-full ${
               riskLevel === 'Critical'
@@ -119,9 +119,9 @@ export const EquipmentCard = ({
       </div>
 
       {/* Footer Info Row */}
-      <div className="flex items-center justify-between pt-2 text-[11px] text-slate-400">
+      <div className="flex items-center justify-between pt-2 text-[11px] text-slate-500">
         <div className="flex items-center gap-1.5">
-          <Clock className="w-3 h-3 text-slate-500" />
+          <Clock className="w-3 h-3 text-slate-400" />
           <span>Updated: {formatTime(twin.last_updated)}</span>
         </div>
 
