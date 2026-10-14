@@ -1,0 +1,60 @@
+{
+  "description": "Sample test fixtures for EquipTwin-AI sensor simulation.",
+  "notice": "All data in this file is strictly SIMULATED and labeled as such.",
+  "samples": [
+    {
+      "equipment_id": "VEN-001",
+      "data_source": "SIMULATED",
+      "equipment_name": "Ventilator",
+      "timestamp": "2026-10-14T12:00:00Z",
+      "scenario": "nominal_normal",
+      "readings": {
+        "airway_pressure": 20.4,
+        "flow_rate": 42.1,
+        "dht11_temperature": 23.5,
+        "dht11_humidity": 55.2,
+        "dc_voltage": 12.05
+      }
+    },
+    {
+      "equipment_id": "VEN-001",
+      "data_source": "SIMULATED",
+      "equipment_name": "Ventilator",
+      "timestamp": "2026-10-14T12:05:00Z",
+      "scenario": "warning_flow_drift",
+      "readings": {
+        "airway_pressure": 27.2,
+        "flow_rate": 22.4,
+        "dht11_temperature": 29.8,
+        "dht11_humidity": 74.0,
+        "dc_voltage": 11.55
+      }
+    },
+    {
+      "equipment_id": "DIA-001",
+      "data_source": "SIMULATED",
+      "equipment_name": "Hemodialysis Machine",
+      "timestamp": "2026-10-14T12:00:00Z",
+      "scenario": "nominal_normal",
+      "readings": {
+        "air_in_blood": 0,
+        "ds18b20_temperature": 36.8,
+        "venous_pressure": 115.0,
+        "conductivity": 13.85
+      }
+    },
+    {
+      "equipment_id": "DIA-001",
+      "data_source": "SIMULATED",
+      "equipment_name": "Hemodialysis Machine",
+      "timestamp": "2026-10-14T12:05:00Z",
+      "scenario": "critical_air_bubble_alarm",
+      "readings": {
+        "air_in_blood": 1,
+        "ds18b20_temperature": 38.6,
+        "venous_pressure": 224.0,
+        "conductivity": 15.4
+      }
+    }
+  ]
+}
